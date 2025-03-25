@@ -18,10 +18,18 @@ REPLY_STANDARD = (
 )
 
 # 📬 Gestione dei messaggi
+ADMIN_ID = 1106121694  # <-- Sostituisci con il tuo vero ID Telegram
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
     text = update.message.text.strip() if update.message.text else None
     print(f"📩 Messaggio ricevuto: {text}")
 
+    # ✉️ Invia copia del messaggio all’amministratore
+    admin_message = f"📩 Nuovo messaggio da @{user.username or 'utente_sconosciuto'} (ID: {user.id}):\n{text}"
+    await context.bot.send_message(chat_id=ADMIN_ID, text=admin_message)
+
+    # 🔍 Controllo del codice
     if text and text in CODE_TO_FILE:
         file_path = CODE_TO_FILE[text]
         print(f"📂 Codice riconosciuto, file associato: {file_path}")
@@ -31,10 +39,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 print("✅ File inviato correttamente.")
         except FileNotFoundError:
             await update.message.reply_text("❌ File non trovato.")
-            print(f"❌ ERRORE: File non trovato: {file_path}")
     else:
         await update.message.reply_text(REPLY_STANDARD)
-        print("ℹ️ Risposta standard inviata.")
+
 
 # 🚀 Avvio del bot
 def main():
