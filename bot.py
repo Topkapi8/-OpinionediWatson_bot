@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
 # 🔐 Inserisci il tuo TOKEN
-BOT_TOKEN = 'INSERISCI_IL_TUO_TOKEN_QUI'
+BOT_TOKEN = '7845871925:AAE8PWzG3IRzo-vsX-Dw9htcQ_GwvW0VY5o'
 
 # 📦 Codici e file associati (aggiungili nella cartella dove gira lo script)
 CODE_TO_FILE = {
