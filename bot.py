@@ -7,7 +7,7 @@ BOT_TOKEN = "7845871925:AAE8PWzG3IRzo-vsX-Dw9htcQ_GwvW0VY5o"
 
 # 🔗 Codici e PDF associati
 CODE_TO_FILE = {
-   "001": "articolo_distopico_001.pdf",
+   "001": "001 - Canale di Panama.pdf",
    "002": "articolo_distopico_002.pdf",
 }
 
