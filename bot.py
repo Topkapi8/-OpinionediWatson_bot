@@ -13,7 +13,7 @@ CODE_TO_FILE = {
 
 # 💬 Risposta standard
 REPLY_STANDARD = (
-    "Grazie di averci contattato, abbiamo girato il vostro articolo a Watson che, "
+    "Grazie di averci contattato, questo e' un messaggio automatico , avete mandato un articolo? Lo abbiamo girato il vostro articolo a Watson che, "
     "se lo giudicherà stimolante per la comunità, lo pubblicherà con la sua risposta."
 )
 
