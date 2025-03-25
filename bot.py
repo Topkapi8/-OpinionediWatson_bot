@@ -16,7 +16,7 @@ ADMIN_ID = 1106121694  # Assicurati che sia un numero, senza virgolette
 
 # 📚 Mappa codici -> file
 CODE_TO_FILE = {
-    "001": "001 - Canale di Panama@DistopiaQuotidiana.pdf",
+    "001": "001.pdf",
     "002": "articolo_distopico_002.pdf",
 }
 
