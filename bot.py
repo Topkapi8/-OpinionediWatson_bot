@@ -31,55 +31,55 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     text = update.message.text.strip() if update.message.text else None
 
-    # 📎 Se è un documento (file inviato)
+    # 📌 Se è un documento (file inviato)
     if update.message.document:
         document = update.message.document
         file = await context.bot.get_file(document.file_id)
 
-        caption = f"\ud83d\udcce Documento ricevuto da @{user.username or 'utente_sconosciuto'} (ID: {user.id})\nNome file: {document.file_name}"
+        caption = f"📌 Documento ricevuto da @{user.username or 'utente_sconosciuto'} (ID: {user.id})\nNome file: {document.file_name}"
         await context.bot.send_document(chat_id=ADMIN_ID, document=document.file_id, caption=caption)
         await update.message.reply_text(REPLY_STANDARD)
         return
 
-    # \ud83d\udce2 Notifica all'amministratore per i messaggi di testo
-    admin_message = f"\ud83d\udce9 Nuovo messaggio da @{user.username or 'utente_sconosciuto'} (ID: {user.id}):\n{text}"
+    # 📢 Notifica all'amministratore per i messaggi di testo
+    admin_message = f"📩 Nuovo messaggio da @{user.username or 'utente_sconosciuto'} (ID: {user.id}):\n{text}"
     await context.bot.send_message(chat_id=ADMIN_ID, text=admin_message)
 
-    # \ud83d\udd0d Verifica se il messaggio è un codice valido
+    # 🔍 Verifica se il messaggio è un codice valido
     if text and text in CODE_TO_FILE:
         file_path = CODE_TO_FILE[text]
         try:
             with open(file_path, 'rb') as f:
                 await update.message.reply_document(document=f)
         except FileNotFoundError:
-            await update.message.reply_text("\u274c Il file associato a questo codice non è stato trovato.")
+            await update.message.reply_text("❌ Il file associato a questo codice non è stato trovato.")
     else:
         await update.message.reply_text(REPLY_STANDARD)
 
-# \u2709\ufe0f Comando /reply per far rispondere il bot a un utente specifico
+# ✉️ Comando /reply per far rispondere il bot a un utente specifico
 async def reply_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sender_id = update.effective_user.id
     print(f"[DEBUG] Admin ID: {ADMIN_ID} - Utente: {sender_id}")
 
     if str(sender_id) != str(ADMIN_ID):
-        await update.message.reply_text("\u26d4\ufe0f Non hai il permesso per usare questo comando.")
+        await update.message.reply_text("⛔️ Non hai il permesso per usare questo comando.")
         return
 
     if len(context.args) < 2:
-        await update.message.reply_text("\u2757 Usa il comando così: /reply <user_id> <messaggio>")
+        await update.message.reply_text("❗ Usa il comando così: /reply <user_id> <messaggio>")
         return
 
     try:
         target_user_id = int(context.args[0])
         reply_text = ' '.join(context.args[1:])
         await context.bot.send_message(chat_id=target_user_id, text=reply_text)
-        await update.message.reply_text("\u2705 Messaggio inviato con successo.")
+        await update.message.reply_text("✅ Messaggio inviato con successo.")
     except Exception as e:
-        await update.message.reply_text(f"\u274c Errore: {e}")
+        await update.message.reply_text(f"❌ Errore: {e}")
 
-# \ud83d\ude80 Avvio del bot
+# 🚀 Avvio del bot
 def main():
-    print("\ud83e\udd16 Avvio del bot OpinioneDistopica...")
+    print("🤖 Avvio del bot OpinioneDistopica...")
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("reply", reply_command))
